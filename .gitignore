@@ -15,3 +15,7 @@ wp-content/plugins/*
 
 !wp-content/plugins/my-plugin/
 wp-content/plugins/my-plugin/vendor
+
+# Delete these after project is ready:
+!docker-compose.yml
+!wp-content/debug.log

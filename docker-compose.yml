@@ -1,0 +1,56 @@
+version: '3.3'
+name: wordpress-local-dev-template
+
+services:
+  db:
+    image: mysql:5.7
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: on-failure
+    environment:
+      MYSQL_ROOT_PASSWORD: wordpress
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - "81:80"
+    restart: on-failure
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      MYSQL_ROOT_PASSWORD: 'wordpress'
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+    depends_on:
+      - db
+    links:
+      - db:db
+
+  wordpress:
+    depends_on:
+      - db
+    image: wordpress:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./wp-content/plugins/my-plugin:/var/www/html/wp-content/plugins/my-plugin
+      - ./wp-content/themes/my-child-theme:/var/www/html/wp-content/themes/my-child-theme
+      - type: bind
+        source: ./wp-content/debug.log
+        target: /var/www/html/wp-content/debug.log
+    links:
+      - db:db
+    restart: on-failure
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_DEBUG: 1
+      WORDPRESS_CONFIG_EXTRA: define('WP_DEBUG_LOG', true);
+volumes:
+    db_data:
