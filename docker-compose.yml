@@ -37,8 +37,8 @@ services:
     ports:
       - "80:80"
     volumes:
-      - ./wp-content/plugins/my-plugin:/var/www/html/wp-content/plugins/my-plugin
-      - ./wp-content/themes/my-child-theme:/var/www/html/wp-content/themes/my-child-theme
+      - ./wp-content/plugins:/var/www/html/wp-content/plugins
+      - ./wp-content/themes:/var/www/html/wp-content/themes
       - type: bind
         source: ./wp-content/debug.log
         target: /var/www/html/wp-content/debug.log
