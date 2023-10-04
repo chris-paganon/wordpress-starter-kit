@@ -39,9 +39,7 @@ services:
     volumes:
       - ./wp-content/plugins:/var/www/html/wp-content/plugins
       - ./wp-content/themes:/var/www/html/wp-content/themes
-      - type: bind
-        source: ./wp-content/debug.log
-        target: /var/www/html/wp-content/debug.log
+      - ./wp-content/debug.log:/var/www/html/wp-content/debug.log
     links:
       - db:db
     restart: on-failure
@@ -53,4 +51,4 @@ services:
       WORDPRESS_DEBUG: 1
       WORDPRESS_CONFIG_EXTRA: define('WP_DEBUG_LOG', true);
 volumes:
-    db_data:
+  db_data:
