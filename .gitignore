@@ -1,10 +1,9 @@
 *.min.css
 *.min.js
 
-/*
-!.gitignore
 wp-content/*
 !wp-content/
+!wp-content/debug.log.sample
 
 wp-content/themes/*
 !wp-content/themes/
@@ -15,7 +14,3 @@ wp-content/plugins/*
 
 !wp-content/plugins/my-plugin/
 wp-content/plugins/my-plugin/vendor
-
-# Delete these after project is ready:
-!docker-compose.yml
-!wp-content/debug.log
